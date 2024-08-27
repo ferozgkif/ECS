@@ -6,115 +6,78 @@ variable "region" {
       AWS ECS Cluster
 ===========================*/
 
-variable "cluster_name" {
-  description = "The name for the ecs Cluster"
+########
+variable "ecs_cluster_name" {
+  description = "Name of the cluster (up to 255 letters, numbers, hyphens, and underscores)"
   type        = string
+  default     = "ecs-1"
 }
-
-variable "create_service_role" {
-  description = "Variable to decide whether IAM Service linked role should be created for ECS"
-  default     = false
-  type        = bool
-}
-
 
 /*==========================
       AWS ECS Service
 ===========================*/
 
-variable "name" {
-  description = "The name for the ecs service"
+variable "aws_ecs_service_name" {
   type        = string
+  description = "service name"
+  default     = "demo_ecs_svc"
 }
 
-variable "desired_tasks" {
-  description = "The minumum number of tasks to run in the service"
+variable "cluster_id" {
   type        = string
+  description = "service name"
+  default     = "demo_ecs_svc"
 }
 
-variable "arn_security_group" {
-  description = "ARN of the security group for the tasks"
-  type        = string
-}
-
-variable "ecs_cluster_id" {
-  description = "The ECS cluster ID in which the resources will be created"
-  type        = string
-}
-
-variable "arn_target_group" {
-  description = "The ARN of the AWS Target Group to put the ECS task"
-  type        = string
-}
-
-variable "arn_task_definition" {
-  description = "The ARN of the Task Definition to use to deploy the tasks"
-  type        = string
-}
-
-variable "subnets_id" {
-  description = "Subnet ID in which ecs will deploy the tasks"
-  type        = list(string)
-}
-
-variable "container_port" {
-  description = "The port that the container will listen request"
-  type        = string
-}
-
-variable "container_name" {
-  description = "The name of the container"
-  type        = string
-}
-
-
-/*====================================
-      AWS ECS Task definition
-=====================================*/
-
-
-variable "name" {
-  description = "The name for Task Definition"
-  type        = string
-}
-
-variable "container_name" {
-  description = "The name of the Container specified in the Task definition"
-  type        = string
-}
-
-variable "execution_role_arn" {
-  description = "The IAM ARN role that the ECS task will use to call other AWS services"
-  type        = string
-}
-
-variable "task_role_arn" {
-  description = "The IAM ARN role that the ECS task will use to call other AWS services"
-  type        = string
-  default     = null
-}
-
-variable "cpu" {
-  description = "The CPU value to assign to the container, read AWS documentation for available values"
-  type        = string
-}
-
-variable "memory" {
-  description = "The MEMORY value to assign to the container, read AWS documentation to available values"
-  type        = string
-}
-
-variable "docker_repo" {
-  description = "The docker registry URL in which ecs will get the Docker image"
-  type        = string
-}
-
-variable "region" {
-  description = "AWS Region in which the resources will be deployed"
-  type        = string
-}
-
-variable "container_port" {
-  description = "The port that the container will use to listen to requests"
+variable "app_port" {
   type        = number
+  description = "Port number of the application contianer"
+  default     = 80
 }
+
+variable "app_count" {
+  type        = number
+  description = "Number of replicas of the pod"
+  default     = 2
+}
+
+
+# /*====================================
+#       AWS ECS Task definition
+# =====================================*/
+
+variable "aws_ecs_task_def_fam" {
+  type        = string
+  description = "demo_ecs_fam"
+  default     = "demo_ecs_fam"
+}
+
+variable "fargate_cpu" {
+  type        = number
+  description = "enter required number of cpus"
+  default     = 1024
+}
+
+variable "fargate_memory" {
+  type        = number
+  description = "Enter required memory"
+  default     = 2048
+}
+
+
+# variable "aws_ecr_repository" {
+#   type        = string
+#   description = "ECR repo name"
+#   default     = "demo_ecs_app"
+# }
+
+variable "ecs_task_execution_role" {
+  type    = string
+  default = "ecsTaskExecutionRole"
+}
+
+
+
+
+
+
